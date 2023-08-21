@@ -2,9 +2,10 @@
 
 DATE=$(date +%F)
 SCRIPT_NAME=$0
-LOG_DIR =/tmp
-LOG_FILE=$LOG_DIR/$SCRIPT_NAME-$DATE.log
+LOG_FILE=/tmp/$SCRIPT_NAME-$DATE.log
+
 USER=$(id -u)
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -14,29 +15,31 @@ VALIDATE()
 {
     if [ $1 -ne 0 ]
     then 
-        echo "$G $2 is Successful $N"
+        echo -e "$G $2 is Successful $N"
     else
-        echo "$R $2 is Failed $N"
+        echo -e "$R $2 is Failed $N"
     fi
 }
 
-if [ $USER -ne 0]
+if [ $USER -ne 0 ]
     then 
-        echo "$R You need sudo access to install $N"
+        echo -e "$R You need sudo access to install $N"
         exit 1
 fi
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
 VALIDATE $? "Copying Mongo repo file to /etc/yum.repos.d directory "
 
-yum install mongodb -y
+yum install mongodb -y &>> $LOG_FILE
 VALIDATE $? "Installing Mongodb"
 
-systemctl enable mongod
+systemctl enable mongod &>> $LOG_FILE
 VALIDATE $? "Enabling Mongodb"
-systemctl start mongod
+
+systemctl start mongod &>> $LOG_FILE
 VALIDATE $? "Starting Mongodb"
-sed -i s/127.0.0.1/0.0.0.0/ /etc/mongod.conf
+
+sed -i s/127.0.0.1/0.0.0.0/ /etc/mongod.conf &>> $LOG_FILE
 VALIDATE $? "Changing IP Address form local host to ip4"
-systemctl restart mongod
+systemctl restart mongod &>> $LOG_FILE
 VALIDATE $? "Restarting Mongodb"

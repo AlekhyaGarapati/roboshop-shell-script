@@ -37,18 +37,17 @@ VALIDATE $? "rpm Installation "
 yum module enable redis:remi-6.2 -y &>> $LOG_FILE
 VALIDATE $? "6.2 Redis Module Enabling"
 
-yum install redis -y 
+yum install redis -y &>> $LOG_FILE
 VALIDATE $? "redis Installation"
 
-
-sed -i /s/127.0.0.1/0.0.0.0/ /etc/redis.conf &>> $LOG_FILE
+sed -i s/127.0.0.1/0.0.0.0/ /etc/redis.conf &>> $LOG_FILE
 VALIDATE $? "IP Updation in  /etc/redis.conf"
 
-sed -i /s/127.0.0.0/0.0.0.0/ /etc/redis/redis.conf &>> $LOG_FILE
+sed -i s/127.0.0.0/0.0.0.0/ /etc/redis/redis.conf &>> $LOG_FILE
 VALIDATE $? "IP Updation in  /etc/redis/redis.conf"
 
-systemctl enable redis
+systemctl enable redis &>> $LOG_FILE
 VALIDATE $? "Enabling redis"
 
-systemctl start redis
+systemctl start redis &>> $LOG_FILE
 VALIDATE $? "Starting redis"

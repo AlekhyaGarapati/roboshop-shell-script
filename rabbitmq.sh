@@ -11,10 +11,11 @@ Y="\e[33m"
 N="\e[0m"
 
 VALIDATE_USER()
-{
+{ 
    if[ $USER -ne 0 ] 
    then
-       echo "$Y You should have sudo access to install rabbitmq $N"
+       echo  -e "$Y You should have sudo access to install rabbitmq $N"
+       exit 1
     fi
 }
 
@@ -22,9 +23,9 @@ VALIDATE()
 {
     if [ $1 -ne 0 ]
     then
-        echo "$R $2 is failed . Please see log file $N"
+        echo -e "$R $2 is failed . Please see log file $N"
     else 
-        echo "$G $2 is Successfull $N"
+        echo -e "$G $2 is Successfull $N"
     fi
 } 
 

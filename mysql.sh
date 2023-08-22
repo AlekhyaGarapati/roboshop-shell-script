@@ -15,6 +15,7 @@ VALIDATE_USER()
     if [ $USER -ne 0 ]
     then 
         echo -e "$Y You need sudo access to Install MySql $N"
+        exit 1
     fi
 }
 

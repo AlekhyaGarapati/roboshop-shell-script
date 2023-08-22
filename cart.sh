@@ -14,7 +14,7 @@ VALIDATE_USER()
 { 
    if [ $USER -ne 0 ] 
    then
-       echo  -e "$Y You should have sudo access to install rabbitmq $N"
+       echo  -e "$Y You should have sudo access to install cart $N"
        exit 1
     fi
 }
@@ -30,3 +30,42 @@ VALIDATE()
 } 
 
 VALIDATE_USER $USER
+
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $LOG_FILE
+VALIDATE $? "Adding nodejs repository"
+
+yum install nodejs -y &>> $LOG_FILE
+VALIDATE $? "Installig Nodejs"
+
+useradd roboshop &>> $LOG_FILE
+VALIDATE $? "Adding user roboshop"
+
+mkdir /app &>> $LOG_FILE
+VALIDATE $? "Creating app directory"
+
+curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG_FILE
+VALIDATE $? "Downloading code"
+
+cd /app 
+echo -e "$Y current directory:$(pwd) $N)"
+
+unzip /tmp/cart.zip &>> $LOG_FILE
+VALIDATE $? "Unzipping code to app directory"
+
+echo -e "$Y current directory:$(pwd) $N)"
+
+npm install &>> $LOG_FILE
+VALIDATE $? "Installing nodejs repositories"
+
+
+cp cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
+VALIDATE $? "Creation and copying cart service"
+
+systemctl daemon-reload &>> $LOG_FILE
+VALIDATE $? "daemon-reload"
+
+systemctl enable cart &>> $LOG_FILE
+VALIDATE $? "Enabling cart"
+
+systemctl start cart &>> $LOG_FILE
+VALIDATE $? "Starting cart"

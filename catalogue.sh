@@ -37,8 +37,8 @@ VALIDATE $? "NodeJS repos setup"
 yum install nodejs -y &>> $LOG_FILE
 VALIDATE $? "nodejs Installation"
 
-#useradd roboshop &>> $LOG_FILE
-#$VALIDATE $? "adding roboshop user"
+useradd roboshop &>> $LOG_FILE
+$VALIDATE $? "adding roboshop user"
 
 mkdir /app &>> $LOG_FILE
 VALIDATE $? "Dir creation"

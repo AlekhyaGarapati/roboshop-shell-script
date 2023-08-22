@@ -12,7 +12,7 @@ N="\e[0m"
 
 VALIDATE_USER()
 { 
-   if[ $USER -ne 0 ] 
+   if [ $USER -ne 0 ] 
    then
        echo  -e "$Y You should have sudo access to install rabbitmq $N"
        exit 1

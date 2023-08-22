@@ -14,7 +14,7 @@ VALIDATE_USER()
 {
   if [ $USER -ne 0 ]
    then
-       echo "$R You should have sudo access to Install $N"
+       echo -e "$R You should have sudo access to Install $N"
        exit 1
   fi
 }
@@ -23,9 +23,9 @@ VALIDATE()
 {
     if [$1 -eq 0]
      then
-        echo "$G $2 is Successful $N"
+        echo -e "$G $2 is Successful $N"
      else
-        echo "$R $2 is Failed. Please Check Logfile. $N"
+        echo -e "$R $2 is Failed. Please Check Logfile. $N"
     fi
 }
 

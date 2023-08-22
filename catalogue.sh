@@ -37,18 +37,21 @@ VALIDATE $? "NodeJS repos setup"
 yum install nodejs -y &>> $LOG_FILE
 VALIDATE $? "nodejs Installation"
 
-useradd roboshop &>> $LOG_FILE
-VALIDATE $? "adding roboshop user"
+#useradd roboshop &>> $LOG_FILE
+#$VALIDATE $? "adding roboshop user"
 
 mkdir /app &>> $LOG_FILE
+VALIDATE $? "Dir creation"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> LOG_FILE
 VALIDATE $? "Downloading application code"
 
-cd /app | unzip /tmp/catalogue.zip &>> LOG_FILE
+cd /app 
+unzip /tmp/catalogue.zip &>> LOG_FILE
 VALIDATE $? "Unzipping application code"
 
-cd /app |npm install &>> $LOG_FILE
+cd /app 
+npm install &>> $LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
 cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOG_FILE

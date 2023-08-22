@@ -8,9 +8,9 @@ LOGFILE=/tmp/$SCRIPT_NAME-$DATE.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-N="\e[0m'
+N="\e[0m"
 
-VALIDATE_USER
+VALIDATE_USER()
 {
   if [ $USER -ne 0 ]
    then
@@ -19,7 +19,7 @@ VALIDATE_USER
   fi
 }
 
-VALIDATE
+VALIDATE()
 {
     if [$1 -eq 0]
      then

@@ -40,10 +40,11 @@ VALIDATE $? "6.2 Redis Module Enabling"
 yum install redis -y 
 VALIDATE $? "redis Installation"
 
-sed -i '/s/127.0.0.0/0.0.0.0/' /etc/redis.conf
+
+sed -i /s/127.0.0.1/0.0.0.0/ /etc/redis.conf &>> $LOG_FILE
 VALIDATE $? "IP Updation in  /etc/redis.conf"
 
-sed -i '/s/127.0.0.0/0.0.0.0/' /etc/redis/redis.conf
+sed -i /s/127.0.0.0/0.0.0.0/ /etc/redis/redis.conf &>> $LOG_FILE
 VALIDATE $? "IP Updation in  /etc/redis/redis.conf"
 
 systemctl enable redis

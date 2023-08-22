@@ -21,11 +21,11 @@ VALIDATE_USER()
 
 VALIDATE()
 {
-    if [$1 -eq 0]
+    if [ $1 -ne 0 ]
      then
-        echo -e "$G $2 is Successful $N"
-     else
         echo -e "$R $2 is Failed. Please Check Logfile. $N"
+     else
+        echo -e "$G $2 is Successful $N"
     fi
 }
 

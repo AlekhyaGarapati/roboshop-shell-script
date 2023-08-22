@@ -31,20 +31,20 @@ VALIDATE()
 
 VALIDATE_USER $USER
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>> $LOG_FILE 
 VALIDATE $? "Configuring yum repos from the script provided by vendor" 
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>> $LOG_FILE
 VALIDATE $? "Configuring yum repos for rabbitmq"
 
-yum install rabbitmq-server -y 
+yum install rabbitmq-server -y &>> $LOG_FILE
 VALIDATE $? "Installation of rabbitmq "
 
-systemctl enable rabbitmq-server 
+systemctl enable rabbitmq-server &>> $LOG_FILE
 VALIDATE $? "Enabling rabbitmq server"
 
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 &>> $LOG_FILE
 VALIDATE $? "Adding user and setting up password"
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOG_FILE
 VALIDATE $? "Setting permissions"

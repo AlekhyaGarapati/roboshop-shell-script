@@ -51,7 +51,7 @@ VALIDATE $? "Unzipping application code"
 cd /app |npm install &>> $LOG_FILE
 VALIDATE $? "Installing Dependencies"
 
-cp catalogueservice /etc/systemd/system/catalogue.service &>> $LOG_FILE
+cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOG_FILE
 VALIDATE $? "Adding catalogue service"
 
 systemctl daemon-reload &>> $LOG_FILE

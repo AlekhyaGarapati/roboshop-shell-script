@@ -56,7 +56,8 @@ echo -e "$Y current directory:$(pwd) $N)"
 
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing nodejs repositories"
-
+cd ..
+echo -e "$Y current directory:$(pwd) $N)"
 
 cp cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
 VALIDATE $? "Creation and copying cart service"

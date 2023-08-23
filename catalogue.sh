@@ -40,6 +40,7 @@ VALIDATE $? "nodejs Installation"
 useradd roboshop &>> $LOG_FILE
 $VALIDATE $? "adding roboshop user"
 
+
 mkdir /app &>> $LOG_FILE
 VALIDATE $? "Dir creation"
 
@@ -47,7 +48,7 @@ curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zi
 VALIDATE $? "Downloading application code"
 
 cd /app 
-unzip /tmp/catalogue.zip &>> LOG_FILE
+unzip /tmp/catalogue.zip &>> LOG_FILE 
 VALIDATE $? "Unzipping application code"
 
 cd /app 
@@ -72,5 +73,5 @@ VALIDATE $? "copying mongo repo to install client"
 yum install mongodb-org-shell -y &>> $LOG_FILE
 VALIDATE $? "Installing mongodb client"
 
-mongo --host 172.31.46.58 </app/schema/catalogue.js &>> $LOG_FILE
+mongo --host 172.31.46.58</app/schema/catalogue.js &>> $LOG_FILE
 VALIDATE $? "Loading Schema"

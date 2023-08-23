@@ -53,7 +53,7 @@ fi
     mkdir /app &>> $LOG_FILE
     VALIDATE $? "Creating app directory"
 else
-    echo "$Y directory already created, please proceed $N"
+    echo -e "$Y directory already created, please proceed $N"
  fi
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG_FILE
 VALIDATE $? "Downloading code"

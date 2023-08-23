@@ -47,17 +47,18 @@ curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG
 VALIDATE $? "Downloading code"
 
 cd /app 
-echo -e "$Y current directory:$(pwd) $N)"
+echo -e "$Y current directory:$(pwd) $N"
 
 unzip /tmp/cart.zip &>> $LOG_FILE
 VALIDATE $? "Unzipping code to app directory"
 
-echo -e "$Y current directory:$(pwd) $N)"
+echo -e "$Y current directory:$(pwd) $N"
 
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing nodejs repositories"
+
 cd ..
-echo -e "$Y current directory:$(pwd) $N)"
+echo -e "$Y current directory:$(pwd) $N"
 
 cp cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
 VALIDATE $? "Creation and copying cart service"

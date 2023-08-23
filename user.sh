@@ -37,8 +37,9 @@ VALIDATE $? "Node js Setup"
 yum install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installation of nodejs"
 
-VALIDATE_ROBOSHOP=$(id roboshop)
-if [ $? -ne  0]
+VALIDATE_ROBOSHOP=$(id roboshop) &>>LOG_FILE
+
+if [ $? -ne  0 ]
 then
     useradd roboshop  &>>$LOG_FILE
     VALIDATE $? "User roboshop addded"
@@ -46,12 +47,12 @@ else
    echo -e "$Y roboshop user already exists, please proceed $N"
 fi
 
-VALIDATE_DIR=$(cd /app)
+VALIDATE_DIR=$(cd /app) &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then
      mkdir /app  &>>$LOG_FILE
-     VALIDATE $? "/app Directory"
+     VALIDATE $? "/app Directory creation"
 else
     echo -e "$Y Directory already exist, please proceed $N"
 fi
@@ -82,6 +83,9 @@ VALIDATE $? "enabling user"
 
 systemctl start user &>>$LOG_FILE
 VALIDATE $? "Starting User"
+
+cp /home/centos/roboshop-shell-script/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+VALIDATE $? "Copiying mongo repo"
 
 yum install mongodb-org-shell -y &>>$LOG_FILE
 VALIDATE $? "Installation of Mongo Client"

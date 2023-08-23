@@ -65,7 +65,7 @@ echo -e "$Y current directory:$(pwd) $N"
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing nodejs repositories"
 
-cp home/centos/roboshop-shell-script/cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
+cp /home/centos/roboshop-shell-script/cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
 VALIDATE $? "Creation and copying cart service"
 
 systemctl daemon-reload &>> $LOG_FILE

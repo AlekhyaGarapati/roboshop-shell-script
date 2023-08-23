@@ -4,8 +4,7 @@ USER=$(id -u)
 DATE=$(date +%F)
 SCRIPT_NAME=$0
 LOG_FILE=/tmp/$SCRIPT_NAME-$DATE.log
-NEWUSER="roboshop"
-NEW_DIR="/app"
+
 
 R="\e[31m"
 G="\e[32m"
@@ -39,21 +38,23 @@ VALIDATE $? "Adding nodejs repository"
 yum install nodejs -y &>> $LOG_FILE
 VALIDATE $? "Installig Nodejs"
 
-id $NEWUSER
+VALIDATE_ROBOSHOP=$(id roboshop)
 
 if [ $? -ne 0 ]
 then 
     useradd roboshop &>> $LOG_FILE
     VALIDATE $? "Adding user roboshop"
 fi
- DIR=$(cd /app)
- if [ DIR -ne 0]
+
+ VALIDATE_DIR=$(cd /app)
+
+ if [ $? -ne 0]
  then
     mkdir /app &>> $LOG_FILE
     VALIDATE $? "Creating app directory"
 else
     echo "$Y directory already created, please proceed $N"
-
+ fi
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG_FILE
 VALIDATE $? "Downloading code"
 

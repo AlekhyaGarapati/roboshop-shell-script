@@ -46,11 +46,14 @@ then
     useradd roboshop &>> $LOG_FILE
 VALIDATE $? "Adding user roboshop"
 fi
-
-
-mkdir /app &>> $LOG_FILE
-VALIDATE $? "Creating app directory"
-
+ DIR = $(cd /app)
+ if [ DIR -ne 0]
+ then
+    mkdir /app &>> $LOG_FILE
+    VALIDATE $? "Creating app directory"
+else
+    echo "$Y directory already created, please proceed $N"
+    
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOG_FILE
 VALIDATE $? "Downloading code"
 

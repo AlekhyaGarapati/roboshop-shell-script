@@ -48,7 +48,7 @@ fi
 
  VALIDATE_DIR=$(cd /app)
 
- if [ $? -ne 0]
+ if [ $? -ne 0 ]
  then
     mkdir /app &>> $LOG_FILE
     VALIDATE $? "Creating app directory"

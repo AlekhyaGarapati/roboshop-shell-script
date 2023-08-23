@@ -4,6 +4,8 @@ USER=$(id -u)
 DATE=$(date +%F)
 SCRIPT_NAME=$0
 LOG_FILE=/tmp/$SCRIPT_NAME-$DATE.log
+NEWUSER="roboshop"
+NEW_DIR="/app"
 
 R="\e[31m"
 G="\e[32m"
@@ -30,6 +32,7 @@ VALIDATE()
 } 
 
 VALIDATE_USER $USER
+CHECK_USER $NEWUSER
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>> $LOG_FILE
 VALIDATE $? "Adding nodejs repository"
@@ -37,8 +40,14 @@ VALIDATE $? "Adding nodejs repository"
 yum install nodejs -y &>> $LOG_FILE
 VALIDATE $? "Installig Nodejs"
 
-useradd roboshop &>> $LOG_FILE
+id $NEWUSER
+
+if [ $? -ne 0 ]
+then 
+    useradd roboshop &>> $LOG_FILE
 VALIDATE $? "Adding user roboshop"
+fi
+
 
 mkdir /app &>> $LOG_FILE
 VALIDATE $? "Creating app directory"
@@ -57,10 +66,7 @@ echo -e "$Y current directory:$(pwd) $N"
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing nodejs repositories"
 
-cd ..
-echo -e "$Y current directory:$(pwd) $N"
-
-cp cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
+cp home/centos/roboshop-shell-script/cart.service /etc/systemd/system/cart.service &>> $LOG_FILE
 VALIDATE $? "Creation and copying cart service"
 
 systemctl daemon-reload &>> $LOG_FILE

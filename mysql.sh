@@ -49,8 +49,7 @@ VALIDATE $? "Starting mysqld"
 mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
 VALIDATE $? "Updating default root password"
 
-mysql -uroot -pRoboShop@1 &>> $LOG_FILE
-VALIDATE $? "Setting up user and new password"
+
 
 
 

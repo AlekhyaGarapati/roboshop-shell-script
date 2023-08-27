@@ -12,7 +12,7 @@ HOSTED_ZONE=Z07719251CXO88RVYQRQR
   do 
    echo "Creating $i instance"
 IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" | jq -r '.Instances[0].PrivateIpAddress')
-INSTANCE_ID=$(jq -r '.Instances[0].InstanceId')
+INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=$i,Values=running")
    echo "Created $i instance :$IP_ADDRESS"
    echo "Created $i instance :$INSTANCE_ID"
   done

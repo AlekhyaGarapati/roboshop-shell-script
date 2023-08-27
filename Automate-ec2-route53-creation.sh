@@ -9,6 +9,6 @@ HOSTED_ZONE=Z07719251CXO88RVYQRQR
   
   for i in "${NAME[@]}"
   do 
-   echo "Name:$NAME[i]"
+   echo "Name:$i"
   done
 

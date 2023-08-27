@@ -25,6 +25,6 @@ aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE --change-b
                         }}]
     }
     '
-    echo "Domain Name Server created for $i :$i.$SOMAIN_NAME"
+    echo "Domain Name Server created for $i :$i.$DOMAIN_NAME"
   done
 
